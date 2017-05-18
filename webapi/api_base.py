@@ -8,14 +8,26 @@
 from dict2xml import dict2xml
 from json import JSONDecodeError
 from handler.base import SysBaseHandler
+from abc import ABCMeta, abstractmethod
 from tornado.web import MissingArgumentError
 from webapi.api_error import ApiBaseError, ApiSysError
 
 __author__ = 'blackmatrix'
 
 
-class ApiBaseHandler(SysBaseHandler):
+class ApiBaseHandler(SysBaseHandler, metaclass=ABCMeta):
 
+    def __init__(self, application, request, **kwargs):
+        self._access_token = None
+        self._method = None
+        self._app_key = None
+        self._sign = None
+        self._timestamp = None
+        self._v = None
+        self._format = 'json'
+        SysBaseHandler.__init__(self, application, request, **kwargs)
+
+    @abstractmethod
     def call_api_func(self):
         pass
 
@@ -75,15 +87,8 @@ class ApiBaseHandler(SysBaseHandler):
         self.set_status(status_code=status_code)
         self.write(retinfo)
 
-    def __init__(self, application, request, **kwargs):
-        self._access_token = None
-        self._method = None
-        self._app_key = None
-        self._sign = None
-        self._timestamp = None
-        self._v = None
-        self._format = 'json'
-        SysBaseHandler.__init__(self, application, request, **kwargs)
+    def check_xsrf_cookie(self):
+        pass
 
 
 if __name__ == '__main__':

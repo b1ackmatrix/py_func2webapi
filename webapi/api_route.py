@@ -11,8 +11,8 @@ import hashlib
 from json import JSONDecodeError
 from webapi.api_list import api_version
 from inspect import signature, Parameter
-from webapi.api_error import ApiSysError, ApiBaseError
 from webapi.api_base import ApiBaseHandler
+from webapi.api_error import ApiSysError, ApiBaseError
 
 __author__ = 'matrix'
 
@@ -170,9 +170,6 @@ class WebApiRoute(ApiBaseHandler):
 
     def post(self):
         self.format_retinfo()
-
-    def check_xsrf_cookie(self):
-        pass
 
 
 if __name__ == '__main__':

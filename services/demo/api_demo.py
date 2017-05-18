@@ -30,7 +30,7 @@ class ApiDemo:
 
     @staticmethod
     @test_decorator
-    def set_user(user_id: int, name: str, mark: float, age=19):
+    def set_user(user_id: int, name: str, mark: float, age: int=19):
         """
         测试装饰器对获取函数参数的影响，及接口参数判断说明
         :param user_id:  用户id，必填，当函数参数没有默认值时，接口认为是必填参数
